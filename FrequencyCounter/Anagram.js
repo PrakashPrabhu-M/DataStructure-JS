@@ -3,6 +3,7 @@
 
 const string1='cinema';
 const string2='iceman';
+// summa
 
 const anagram=(str1,str2)=>{
     // if lengths are not equal return false
