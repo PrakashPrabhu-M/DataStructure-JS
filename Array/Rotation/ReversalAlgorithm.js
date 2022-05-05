@@ -1,37 +1,43 @@
 // https://www.geeksforgeeks.org/program-for-array-rotation-continued-reversal-algorithm/?ref=lbp
-const arr=[1,2,3,4,5];
-const steps=2;
-const n=arr.length;
+const arr = [1, 2, 3, 4, 5];
+const steps = 2;
+const n = arr.length;
 
-const rotateArr=(arr,d,n)=>{
-    d=d%n;
-    const reverse=(arr,n)=>{
-        for(let i=0;i<n/2;i++){
-            const temp=arr[i];
-            arr[i]=arr[n-i-1];
-            arr[n-i-1]=temp;
-        }
+const rotateArr = (arr, d, n) => {
+  d = d % n;
+  // split the array into two parts A (till d) and the remening as B
+  // reverse the elements of A
+  console.log(`Initial: ${arr}`);
+  reverse(arr,0,d-1);
+  console.log(`A: ${arr}`);
+
+  // reverse the elements of B
+  reverse(arr,d,n-1);
+  console.log(`B: ${arr}`);
+  
+  // reverse AB
+  reverse(arr,0,n-1);
+
+  return arr;
+
+  // 1 2 3 4 5
+  // 2 1 3 4 5
+  // 2 1 5 4 3
+  // 3 4 5 2 1
+
+  // reverse(from, to)
+  function reverse(arr,from, to) {
+    // loop through half of the elements passed (i.e., loop (from+to)/2 times)
+    for (let i = from; i < (from + to) / 2; i++) {
+      // initialize the looping variable from "from"
+      // temp will store the loop variables data
+      const temp=arr[i];
+      // then the loop variable is assigned to to-i+from
+      arr[i]=arr[to-i+from];
+      // array of to-i+from is assigned to temp
+      arr[to-i+from]=temp;
     }
-    // split the array into two parts i.e array till d and array after d and name then A and B
-    const A=arr.slice(0,d);
-    const B=arr.slice(d,n); //arr.slice(d);
+  }
+};
 
-    // reverse A to get ArB
-    // reverse B to get ArBr => (AB)r
-    // reverse the whole to get BA i.e ((AB)r)r
-
-    // reverse A
-    reverse(A,A.length);
-
-    // reverse B
-    reverse(B,B.length);
-
-    // ArBr
-    A.push(...B);
-
-    // reverse ArBr to get BA
-    reverse(A,n);
-    return A;
-}
-
-console.log(rotateArr(arr,steps,n));
+console.log(rotateArr(arr, steps, n));

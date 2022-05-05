@@ -11,21 +11,23 @@
 // Output: No valid pair exists for 0
 
 const arr = [0, -1, 2, -2, 1],
-  target = -2;
+  target = 5;
 
-function isPair(arr, target) {
-  // initialize an object
-  const obj = new Set();
-  // loop through the array
-  for (let elem of arr) {
-    // target - arr[i] = z
-    // target=z + arr[i]
-    // so if target - element of the array is contained in the object, return true
-    if(obj.has(target-elem)) return true;
+function isPair(){
+  // initialze an object
+  let obj=new Set();
 
-    // else add the element to the object
-    else obj.add(elem)
+  // loop throught the array
+  for(let element of arr){
+    // on each iteration,
+  // we know x+y=z (z is target, x and y are the elements we're searching)
+  // so x-z=-y or z-x=y so subtract the element(x) from the array with the target(z) and check if the result(y) is present in the object
+  // if y is present, it meanse that x and y are present so return true
+  if(obj.has(target-element)) return `${element} + ${target-element} = ${target}`;
+  obj.add(element);
   }
+  
+  // after looping return false, as y is not present
   return false;
 }
 

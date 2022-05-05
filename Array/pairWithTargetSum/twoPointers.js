@@ -17,26 +17,25 @@ function isPair(arr, target) {
   // sort the array in asscending order
   arr.sort((a, b) => a - b);
 
-  // initialize two pointers lower and upper
-  let lower = 0,
-    upper = arr.length - 1;
+  // initialize two pointers begin and end
+  let begin = 0,
+    end = arr.length - 1;
 
-  // loop till upper is greater than lower
-  while (upper > lower) {
-    // calculate sum
-    const sum = arr[lower] + arr[upper];
+  // loop till end is greater than begin
+  while (end > begin) {
+    // calculate the sum of end and begin
+    const sum = arr[end] + arr[begin];
 
-    // if sum is equal to target return true
-    if (sum === target) return [arr[lower],arr[upper]];
+    // if the sum is equal to target return true
+    if (sum === target) return `${arr[end]} + ${arr[begin]} = ${target}`;
 
-    // if sum is greater than target, decrement upper
-    if (sum > target) upper--;
-    // else increment lower
-    else lower++;
+    // if sum is greater, decrement end by 1
+    if (sum > target) end--;
+    // if sum is lesser, increment begin by 1
+    else begin++;
+    // after looping return false
   }
-  // return false
   return false;
 }
-
 const res = isPair(arr, target);
 console.log(res);
