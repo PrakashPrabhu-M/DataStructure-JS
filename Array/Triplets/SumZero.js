@@ -1,5 +1,5 @@
 // https://practice.geeksforgeeks.org/problems/find-triplets-with-zero-sum/1/?page=1&category[]=two-pointer-algorithm&sortBy=submissions
-
+// v1
 function findTriplets(arr, n){
   //your code here
   // sort the array

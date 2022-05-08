@@ -1,6 +1,6 @@
 // Find maximum value of Sum( i*arr[i]) with only rotations on given array allowed
 // https://www.geeksforgeeks.org/find-maximum-value-of-sum-iarri-with-only-rotations-on-given-array-allowed/
-
+// v1
 // Input: arr[] = {1, 20, 2, 10}
 // Output: 72
 // We can get 72 by rotating array twice.

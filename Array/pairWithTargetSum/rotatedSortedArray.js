@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/given-a-sorted-and-rotated-array-find-if-there-is-a-pair-with-a-given-sum/
-
+// v1
 // Input: arr[] = {11, 15, 6, 8, 9, 10}, x = 16
 // Output: true
 // There is a pair (6, 10) with sum 16

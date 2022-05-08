@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/array-rotation/?ref=lbp
-
+// v1
 const arr=[1,2,3,4,5];
 const steps=6;
 const n=arr.length;

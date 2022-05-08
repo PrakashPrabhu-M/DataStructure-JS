@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
-
+// v1
 // Input: array = {12, 3, 4, 1, 6, 9}, sum = 24;
 // Output: 12, 3, 9
 // Explanation: There is a triplet (12, 3 and 9) present
