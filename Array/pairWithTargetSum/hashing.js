@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/
-// v1
+// v2
 // Input: arr[] = {0, -1, 2, -3, 1}
 //         x= -2
 // Output: Pair with a given sum -2 is (-3, 1)
@@ -11,25 +11,27 @@
 // Output: No valid pair exists for 0
 
 const arr = [0, -1, 2, -2, 1],
-  target = 5;
+  target = 2;
 
-function isPair(){
-  // initialze an object
-  let obj=new Set();
-
-  // loop throught the array
-  for(let element of arr){
-    // on each iteration,
-  // we know x+y=z (z is target, x and y are the elements we're searching)
-  // so x-z=-y or z-x=y so subtract the element(x) from the array with the target(z) and check if the result(y) is present in the object
-  // if y is present, it meanse that x and y are present so return true
-  if(obj.has(target-element)) return `${element} + ${target-element} = ${target}`;
-  obj.add(element);
-  }
+function isPair(arr, target) {
+  // lower+upper=target
+  // lower=target-upper
+  // lower is the first pointer and it stores all the elements in set on each iteration, if first instance is miissed then upper will be caught
+  // initialize a set with all of the array elements 
   
-  // after looping return false, as y is not present
+  // (modified)
+  const s = new Set();
+
+  // initialize a pointer starting from first element
+  for (let elem of arr) {
+    // loop till the end of the array
+    // for each element in the array, check if the target - the element is contained in the array, if yes, return true
+    if(s.has(target-elem)) return true;
+    s.add(elem);
+  }
+  // return false after the loop
   return false;
 }
 
-const res=isPair(arr,target);
+const res = isPair(arr, target);
 console.log(res);
