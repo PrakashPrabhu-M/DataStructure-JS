@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
-// v1
+// v2
 // Input: array = {12, 3, 4, 1, 6, 9}, sum = 24;
 // Output: 12, 3, 9
 // Explanation: There is a triplet (12, 3 and 9) present
@@ -16,31 +16,30 @@ const res = isPresent(arr, target);
 console.log(res);
 
 function isPresent(arr, target) {
-  // sort the array
+  // 12, 3, 4, 1, 6, 9
+  // sort the array => 1 3 4 6 9 12
   arr.sort((a, b) => a - b);
 
-  // loop through the elements
-  for (let i = 0; i < arr.length - 2; i++) {
-    // initialize two pointers, begin as loop_ind+1 and end as arr.length-1 and temp_target as target-loopVariable
-    let begin = i + 1,
-      end = arr.length - 1,
-      temp_target = target - arr[i];
+  // x+y+z=target
+  // x+y=target-z
+  // z is looping variable
+  for (let z = 0; z < arr.length - 2; z++) {
+    // y and x are upper and lower boundaries
+    let lower = z + 1,
+      upper = arr.length - 1;
+    const tar=target-arr[z];
+    // loop till upper is greater than lower
+    while (upper > lower) {
+      // if x+y is equal to target - z, return x, y and z
+      if(arr[upper]+arr[lower]===tar) return `${arr[z]} + ${arr[lower]} + ${arr[upper]} = ${target}`;
 
-    // loop till end_ind > begin_ind
-    while (end > begin) {
-      // begin+end+loopVariable=target
-      // begin+end=target-loopVariable
-      const sum=arr[begin]+arr[end];
-      // if begin + end equals temp_target return true
-      if(sum===temp_target) return true;
+      // if x+y>target-z then, decrement upper
+      if(arr[lower]+arr[upper]>tar) upper--;
 
-      // if begin+end is greater than temp_target, reduce end by 1
-      if(sum>temp_target) end--;
-
-      // if begin+end is less than temp target, increase begin by 1
-      else if(sum<temp_target) begin++;
+      // else if x+y<target-z then, increment lower
+      else if(arr[lower]+arr[upper]<tar) lower++;
     }
   }
-
-  return false;
+  // return false if not found
+  return 'not found';
 }
