@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
-// v2
+// v3
 // Input: array = {12, 3, 4, 1, 6, 9}, sum = 24;
 // Output: 12, 3, 9
 // Explanation: There is a triplet (12, 3 and 9) present
@@ -16,30 +16,37 @@ const res = isPresent(arr, target);
 console.log(res);
 
 function isPresent(arr, target) {
-  // 12, 3, 4, 1, 6, 9
-  // sort the array => 1 3 4 6 9 12
-  arr.sort((a, b) => a - b);
-
   // x+y+z=target
   // x+y=target-z
-  // z is looping variable
-  for (let z = 0; z < arr.length - 2; z++) {
-    // y and x are upper and lower boundaries
+  // so to find a pair of elements with sum target-z
+  // sort the array in asscending order
+  arr.sort((a, b) => a - b);
+
+  // loop through the array and z is that looping variable
+  for (let z = 0; z < arr.length; z++) {
+    // initialize lower bound to z+1 and upper bound to array length-1
     let lower = z + 1,
       upper = arr.length - 1;
-    const tar=target-arr[z];
-    // loop till upper is greater than lower
-    while (upper > lower) {
-      // if x+y is equal to target - z, return x, y and z
-      if(arr[upper]+arr[lower]===tar) return `${arr[z]} + ${arr[lower]} + ${arr[upper]} = ${target}`;
 
-      // if x+y>target-z then, decrement upper
-      if(arr[lower]+arr[upper]>tar) upper--;
+    // calculate the sum of the two boundaries
+    while (lower < upper) {
+      const sum = arr[lower] + arr[upper];
 
-      // else if x+y<target-z then, increment lower
-      else if(arr[lower]+arr[upper]<tar) lower++;
+      // if it is higher than the target-z, then decrement the upper bound by 1
+      if (sum > target - z) {
+        upper--;
+        continue;
+      }
+
+      // if it is lower then the target-z, then increment the lower bound by 1
+      if (sum < target - z) {
+        lower++;
+        continue;
+      }
+      // return once found
+      return `${arr[lower]} + ${arr[upper]} + ${z} = ${target}`;
     }
   }
-  // return false if not found
-  return 'not found';
+  // if not found after the loop return false
+  return false;
 }
