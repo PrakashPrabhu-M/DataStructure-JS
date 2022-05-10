@@ -14,22 +14,18 @@ const arr = [0, -1, 2, -2, 1],
   target = 2;
 
 function isPair(arr, target) {
-  // lower+upper=target
-  // lower=target-upper
-  // lower is the first pointer and it stores all the elements in set on each iteration, if first instance is miissed then upper will be caught
-  // initialize a set with all of the array elements 
-  
-  // (modified)
+  // we are looking for x+y=target
+  // so x=target-y, we can look whether target-y exists in the below set where y is looping variable and x are the variables in the set
+  // initialize a set
   const s = new Set();
-
-  // initialize a pointer starting from first element
-  for (let elem of arr) {
-    // loop till the end of the array
-    // for each element in the array, check if the target - the element is contained in the array, if yes, return true
-    if(s.has(target-elem)) return true;
-    s.add(elem);
+  // loop through the array
+  for (let i of arr) {
+    // check if the target - the loop element exists in the set
+    // if exists, return true
+    if(s.has(target-i)) return true;
+    // else add the looping variable to the set
+    s.add(i);
   }
-  // return false after the loop
   return false;
 }
 

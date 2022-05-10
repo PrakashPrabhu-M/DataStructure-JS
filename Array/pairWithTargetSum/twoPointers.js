@@ -10,34 +10,34 @@
 //        x = 0
 // Output: No valid pair exists for 0
 
-const readline = require('readline');
+const readline = require("readline");
 
 const arr = [1, 2, 3, 4, 5];
 let target = 5;
 
-function isPair(arr, target) {
-  // sort the array
-  arr.sort((a, b) => a - b);
+const isPair = (arr, target) => {
+  arr.sort((a,b)=>a-b);
+  // initialize two pointers, one from start and other to end
+  let lower = 0,
+    upper = arr.length - 1;
 
-  // initialzie two pointers one from 0 and other for last
-  let start = 0,
-    end = arr.length - 1;
+  // loop till upper is greater than lower
+  while (upper > lower) {
+    // add the values for two pointer and name it as sum
+    const sum=arr[upper]+arr[lower];
 
-  // loop till last is greater than first pointer
-  while (end > start) {
-    // calculate the sum of first and last
-    const sum = arr[start] + arr[end];
+    // if the sum is the target, return true
+    if(sum===target) return [true,arr[upper],'+',arr[lower],'=',target];
 
-    if(sum===target) return `${arr[start]} + ${arr[end]} = ${target}`;
+    // if the sum is less than target, increment the lower bound by 1
+    if(sum<target) lower++;
 
-    // if the sum is greater than target, reduce the last pointer
-    if (sum > target) end--;
-
-    // if the sum is lesser than target, then increase the first pointer
-    else if (sum < target) start++;
+    // else if the sum is greater than the target, decrement the upper bound by 1
+    else upper--;
   }
-  // return false if not found
-  return false
-}
-const res = isPair(arr, target);
+  // return false after the loop
+  return false;
+};
+
+const res=isPair(arr,target);
 console.log(res);
