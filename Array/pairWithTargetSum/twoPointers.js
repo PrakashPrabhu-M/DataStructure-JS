@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/
-// v2
+// v3
 // Input: arr[] = {0, -1, 2, -3, 1}
 //         x= -2
 // Output: Pair with a given sum -2 is (-3, 1)
