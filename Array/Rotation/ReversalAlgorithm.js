@@ -1,39 +1,44 @@
 // https://www.geeksforgeeks.org/program-for-array-rotation-continued-reversal-algorithm/?ref=lbp
-// v2
+// v3
 const arr = [1, 2, 3, 4, 5];
 const steps = 2;
 const n = arr.length;
 
+/**
+ * rotateArray
+ * @param {Array<number>} arr array of elements
+ * @param {number} d steps
+ * @param {number} n length of the array
+ */
 const rotateArr = (arr, d, n) => {
-  // pre-procress the d i.e., d% length of the array
-  d = d % n;
-  // if d is 0 return the array
-  if (!d) return arr;
-
-  // reverse funtion
-  // take the array, starting poing and ending point
-  function reverse(arr, from, to) {
-    // run a loop through array from starting point to half-way to the end point
-    for (let i = from; i < Math.floor((from+to) / 2); i++) {
-      // swap the value of starting point with that of the ending point using the looping variable i and to+from-i
+  /**
+   * reverse
+   * @param {Array<integer>} arr array to be reversed
+   * @param {number} from reverse from
+   * @param {number} to reverse to
+   */
+  const reverse=(arr,from,to)=>{
+    // loop from "from" to the half way of the array i.e., (from+to)/2
+    for(let i=from;i<((from+to)/2);i++){
+      // swap the elements, i to to+from-i
       const temp=arr[i];
-      arr[i]=arr[to+from-i];
-      arr[to+from-i]=temp;
+      arr[i]=arr[from+to-i];
+      arr[from+to-i]=temp;
     }
   }
-console.log('original array', arr);
-  // reverse the part of array i.e., from starting to d elements -> [2, 1, 3, 4, 5]
+  console.log(arr);
+  // reverse the first part i.e., arr of 0 to d
   reverse(arr,0,d-1);
-  console.log('first part', arr);
-  // reverse the other part of the array i.e., from d+1 elements to end -> [2, 1, 5, 4, 3]
-  reverse(arr,d,arr.length-1);
-  console.log('second part', arr);
-  // reverse the complete array -> [3, 4, 5, 1, 2]
-  reverse(arr,0,arr.length-1);
-  console.log('complete', arr);
-  // return the array
+  console.log(arr);
+  // reverse the second part i.e., arr of d+1 to n
+  reverse(arr,d,n-1);
+  console.log(arr);
+  // reverse the whole array i.e., arr of 0 to n
+  reverse(arr,0,n-1);
+  console.log(arr);
+
   return arr;
-};
+}
 
 const res=rotateArr(arr,steps,n);
 console.log(res);
