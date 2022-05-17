@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/
-// v2
+// v3
 // Input: arr[] = {0, -1, 2, -3, 1}
 //         x= -2
 // Output: Pair with a given sum -2 is (-3, 1)
@@ -13,21 +13,37 @@
 const arr = [0, -1, 2, -2, 1],
   target = 2;
 
+
+
+/**
+ * isPair
+ * @param {Array<number>} arr input array
+ * @param {number} target target sum
+ * @returns {boolean} true is exists, false is not
+ */
 function isPair(arr, target) {
+  // initialize all elements of the array to a set
+  const set=new Set(arr);
+
   // we are looking for x+y=target
-  // so x=target-y, we can look whether target-y exists in the below set where y is looping variable and x are the variables in the set
-  // initialize a set
-  const s = new Set();
-  // loop through the array
-  for (let i of arr) {
-    // check if the target - the loop element exists in the set
-    // if exists, return true
-    if(s.has(target-i)) return true;
-    // else add the looping variable to the set
-    s.add(i);
+  // it can also be represented as x=target-y
+  // here x is contained in set and y is looping variable, so if the difference of target with looping varible is contained in set, then there exists a pair
+  for(let i of arr){
+    // return true is exists
+    if(set.has(target-i)) return `${target-i}+${i}=${target}`;
+  }
+  // return false after looping
+  return false;
+}
+
+const OnComplexity=(arr,target)=>{
+  const set=new Set();
+  for(let i of arr){
+    if(set.has(target-i)) return `${target-i}+${i}=${target}`;
+    set.add(i);
   }
   return false;
 }
 
-const res = isPair(arr, target);
+const res = OnComplexity(arr, target);
 console.log(res);
