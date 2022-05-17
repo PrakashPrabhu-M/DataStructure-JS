@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/
-// v3
+// v4
 // Input: arr[] = {0, -1, 2, -3, 1}
 //         x= -2
 // Output: Pair with a given sum -2 is (-3, 1)
@@ -16,28 +16,27 @@ const arr = [1, 2, 3, 4, 5];
 let target = 5;
 
 const isPair = (arr, target) => {
-  arr.sort((a,b)=>a-b);
-  // initialize two pointers, one from start and other to end
-  let lower = 0,
-    upper = arr.length - 1;
+  // initialize two pointers, one to leftmost and other to the right most
+  let upper = arr.length - 1,
+    lower = 0;
 
   // loop till upper is greater than lower
   while (upper > lower) {
-    // add the values for two pointer and name it as sum
-    const sum=arr[upper]+arr[lower];
+    // calculate sum
+    const sum=arr[lower]+arr[upper];
 
-    // if the sum is the target, return true
-    if(sum===target) return [true,arr[upper],'+',arr[lower],'=',target];
+    // if the sum is target, return the elements
+    if(sum===target) return `${arr[lower]}+${arr[upper]}=${target}`;
 
-    // if the sum is less than target, increment the lower bound by 1
-    if(sum<target) lower++;
+    // if sum is greater than the target, decrement upper
+    if(sum>target) upper--;
 
-    // else if the sum is greater than the target, decrement the upper bound by 1
-    else upper--;
+    // else increment lower
+    else lower++;
   }
-  // return false after the loop
+  // return false if not found
   return false;
 };
 
-const res=isPair(arr,target);
+const res = isPair(arr, target);
 console.log(res);

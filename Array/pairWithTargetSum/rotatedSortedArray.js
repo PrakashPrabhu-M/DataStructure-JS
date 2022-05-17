@@ -1,68 +1,71 @@
 // https://www.geeksforgeeks.org/given-a-sorted-and-rotated-array-find-if-there-is-a-pair-with-a-given-sum/
-// v3
+// v4
 // Input: arr[] = {11, 15, 6, 8, 9, 10}, x = 16
 // Output: true
 // There is a pair (6, 10) with sum 16
 
 const arr = [11, 15, 5, 8, 9, 10],
-  x = 16;
+  x = 24;
 
 const res = pair(arr, x);
 console.log(res);
 
-function pair(arr, target) {
-  // initialize array length as len
-  const len = arr.length;
+/**
+ * pivot
+ * @param {Array<number>} arr input array
+ * @returns {number} pivot position
+ */
+function pivot(arr) {
+  // binary search
+  // initialize lower bound and upper bound
+  let lower = 0,
+    upper = arr.length - 1;
 
-  // find pivot point
-  const pivot = (nums) => {
-    // initialize two pointers, upper to end of the array and lower to the starting of the array
-    let upper = len - 1,
-      lower = 0;
+  // initialize the first element to a constant
+  const first = arr[0];
 
-    // store the first element to a variable first
-    const first = nums[0];
+  // loop till lower bound is less or equal to upper bound
+  while (lower <= upper) {
+    // calculate mid
+    const mid = lower + Math.floor((upper - lower) / 2);
 
-    // loop till the lower is lower than or equal to upper
-    while (lower <= upper) {
-      // calculate mid index from lower and upper
-      const mid = lower + Math.floor((upper - lower) / 2);
+    // if mid is greater than its next element, return mid
+    if (arr[mid] > arr[mid + 1]) return mid;
 
-      // check if the mid is the pivot i.e., [mid]>[mid+1] if yes return pivot
-      if (nums[mid] > nums[mid+1]) return mid;
-
-      // compare the mid element with first element, if first element is greater then, make upper as mid-1
-      if (nums[mid] < first) upper = mid - 1;
-      // if the first element is less than the mid, make lower as mid+1
-      else lower = mid + 1;
-    }
-    // after the loop, return 0 if not found
-    return 0;
-  };
-  // get pivot element
-  const p_elem = pivot(arr);
-
-  // initialize two pointers, lower as pivot + 1 and upper as pivot
-  
-  if (p_elem === 0) {
-    (lower = 0), (upper = len - 1);
-  } else {
-    (lower = p_elem + 1), (upper = p_elem);
+    // if mid is less than first element, make upper mid-1
+    if (arr[mid] < first) upper = mid - 1;
+    // if mid is greater than the first element, make lower mid+1
+    else lower = mid + 1;
   }
+  return 0;
+}
 
-  // loop till lower and upper are not equal
-  while (lower !== upper) {
-    // calculate the sum
+/**
+ * pair
+ * @param {Array<number>} arr input array
+ * @param {String} target target sum
+ * @returns {String} result
+ */
+function pair(arr, target) {
+  // get the pivot element
+  const int = pivot(arr);
+  
+  // initialize two pointer, one to the pivot and other pivot+1
+  let upper = int,
+    lower = int + 1;
+
+  // loop till lower!=upper
+  while (lower != upper) {
+    // calculate sum of lower and upper elements
     const sum = arr[lower] + arr[upper];
 
-    if(sum===target) return true;
+    // if the sum is target, return the elements
+    if (sum === target) return `${arr[lower]}+${arr[upper]}=${target}`;
 
-    // if the sum is lower than target, increment the lower by 1 i.e., (lower+1)%len
-    if (sum < target) lower = (lower + 1) % len;
-
-    // if the sum is greater than target, decrement the upper by 1 i.e.,(upper-1+len)%len
-    if (sum > target) upper = (upper - 1 + len) % len;
+    // if the sum is greater than the target, decrement the upper
+    if (sum > target) upper = (upper - 1 + arr.length) % arr.length;
+    // if sum is less than target, increment the lower
+    else lower = (lower + 1 + arr.length) % arr.length;
   }
-  // return false after the loop is over
   return false;
 }
