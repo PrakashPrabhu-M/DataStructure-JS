@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/given-an-array-a-and-a-number-x-check-for-pair-in-a-with-sum-as-x/
-// v4
+// v5
 // Input: arr[] = {0, -1, 2, -3, 1}
 //         x= -2
 // Output: Pair with a given sum -2 is (-3, 1)
@@ -13,29 +13,25 @@
 const readline = require("readline");
 
 const arr = [1, 2, 3, 4, 5];
-let target = 5;
+let target = 8;
 
 const isPair = (arr, target) => {
-  // initialize two pointers, one to leftmost and other to the right most
-  let upper = arr.length - 1,
-    lower = 0;
-
+  // initialize two pointers, lower and upper
+  let lower = 0,
+    upper = arr.length - 1;
   // loop till upper is greater than lower
-  while (upper > lower) {
-    // calculate sum
-    const sum=arr[lower]+arr[upper];
-
-    // if the sum is target, return the elements
-    if(sum===target) return `${arr[lower]}+${arr[upper]}=${target}`;
-
-    // if sum is greater than the target, decrement upper
-    if(sum>target) upper--;
-
-    // else increment lower
-    else lower++;
+  while (lower < upper) {
+    // calculate the sum of elements present in lower and upper
+    const sum = arr[lower] + arr[upper];
+    // if the sum is the target, return the sum
+    if (sum === target) return sum;
+    // if sum is greater than target, decrement upper
+    if (sum > target) upper--;
+    // if sum is lesser than target, increment lower
+    if (sum < target) lower++;
   }
-  // return false if not found
-  return false;
+  // return -1 if not found
+  return -1;
 };
 
 const res = isPair(arr, target);
