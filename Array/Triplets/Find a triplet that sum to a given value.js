@@ -1,5 +1,5 @@
 // https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
-// v3
+// v4
 // Input: array = {12, 3, 4, 1, 6, 9}, sum = 24;
 // Output: 12, 3, 9
 // Explanation: There is a triplet (12, 3 and 9) present
@@ -9,8 +9,8 @@
 // Explanation: There is a triplet (5, 3 and 1) present
 // in the array whose sum is 9.
 
-const arr = [12, 3, 4, 1, 6, 9],
-  target = 24;
+const arr = [12, 3, 4, 1, 6, 9, 2],
+  target = 15;
 
 const res = isPresent(arr, target);
 console.log(res);
@@ -18,35 +18,31 @@ console.log(res);
 function isPresent(arr, target) {
   // x+y+z=target
   // x+y=target-z
-  // so to find a pair of elements with sum target-z
+  // we need to find a pair consisting of x and y that sums up to target-z
   // sort the array in asscending order
   arr.sort((a, b) => a - b);
-
-  // loop through the array and z is that looping variable
-  for (let z = 0; z < arr.length; z++) {
-    // initialize lower bound to z+1 and upper bound to array length-1
-    let lower = z + 1,
+  console.log(arr);
+  // loop throught the array with z as loopting variable
+  for (let i = 0; i < arr.length; i++) {
+    const z = arr[i];
+    // calculate modifiedTarget from target-z
+    const tempTarget = target - z;
+    // initialize lower and upper bound as 0 and arr.length-1
+    let lower = i+1,
       upper = arr.length - 1;
-
-    // calculate the sum of the two boundaries
+    // loop till lower is less than upper
     while (lower < upper) {
+      // calculate the sum of lower element and upper element
       const sum = arr[lower] + arr[upper];
-
-      // if it is higher than the target-z, then decrement the upper bound by 1
-      if (sum > target - z) {
-        upper--;
-        continue;
-      }
-
-      // if it is lower then the target-z, then increment the lower bound by 1
-      if (sum < target - z) {
-        lower++;
-        continue;
-      }
-      // return once found
-      return `${arr[lower]} + ${arr[upper]} + ${z} = ${target}`;
+      // if the sum is the target, return true
+      if (sum === tempTarget)
+        return `${arr[lower]}+${arr[upper]}+${z}=${target}`;
+      // if the sum is less than the target, increment the lower bound
+      if (sum < tempTarget) lower++;
+      // else if the sum is greater than the target, decrement the upper bound
+      else if (sum > tempTarget) upper--;
     }
   }
-  // if not found after the loop return false
+  // return false after completing two loops
   return false;
 }
