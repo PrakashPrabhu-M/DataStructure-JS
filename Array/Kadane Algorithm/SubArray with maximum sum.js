@@ -1,6 +1,6 @@
 // https://www.crio.do/learn/v2/PSDS/ME_DSA_ARRAY_TWO_POINTERS/ME_DSA_ARRAY_TWO_POINTERS_MODULE_CONTIGIOUSSEQUENCE/
 // Thanks to https://www.youtube.com/watch?v=w_KEocd__20
-// v3
+// v4
 // Problem Description
 // Given an array, find a non-empty contiguous subarray with the largest sum.
 
@@ -28,7 +28,7 @@ arr = [-2, -3, 4, -1, -2, 1, 5, -3];
 // initialize a sum variable with 0
 let sum = 0;
 
-const res=maxSum(arr,arr.length);
+const res = maxSum(arr, arr.length);
 console.log(res);
 
 /**
@@ -38,20 +38,18 @@ console.log(res);
  * @returns {number} maximum subarray sum
  */
 function maxSum(arr, len) {
-  // initialize a tempSum 0 and a sum variable to -infinity
-  let tempSum = 0,
-    sum = -Infinity;
-
-  // loop through the array
+  // initialize two numbers with 0
+  let temp = 0,
+    res = 0;
+  // iterate through the array
   for (let i of arr) {
-    // accumulate tempSum
-    tempSum+=i
-    // if tempSum is greater than sum, make sum as tempSum
-    if(tempSum>sum) sum=tempSum;
-
-    // if tempSum is less than 0, make tempSum as 0
-    else if(tempSum<0) tempSum=0;
+    // Accumulate the array with temp
+    temp += i;
+    // if temp is greater than res, make res as temp
+    if (temp > res) res = temp;
+    // if temp is less than 0, make temp as 0
+    if (temp < 0) temp = 0;
   }
-  // return sum
-  return sum;
+  // return the sum
+  return res;
 }
